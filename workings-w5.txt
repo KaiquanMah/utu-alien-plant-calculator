@@ -1,0 +1,137 @@
+utu-green-programming
+W5 workings
+
+git clone https://gitlab.utu.fi/green-programming/alien-plant-calculator.git
+cd alien-plant-calculator
+git remote add github https://github.com/KaiquanMah/utu-alien-plant-calculator.git
+git branch -m master main
+git push github main --force
+
+
+transfer all branches and logs
+git push github --all
+git push github --tags
+
+
+
+mkdir -p .github/workflows
+cat << EOF > .github/workflows/deploy.yml
+> name: Deploy to GitHub Pages
+> 
+> on:
+>   push:
+>     branches: [main]  # Triggers on pushes to the main branch
+> 
+> jobs:
+>   deploy:
+>     runs-on: ubuntu-latest
+>   permissions:
+>     contents: write     # permissions for pushing to GitHub Pages
+>     steps:
+>       - name: Checkout
+>         uses: actions/checkout@v4
+>         
+>       - name: Deploy to GitHub Pages
+>         uses: peaceiris/actions-gh-pages@v4
+>         with:
+>           github_token: \${{ secrets.GITHUB_TOKEN }}
+>           publish_dir: ./public  # Matches GitLab's artifact path
+> EOF
+
+git add .github/workflows/deploy.yml
+git commit -m "Add GitHub Actions to deploy to GitHub Pages"
+git push github main
+
+
+
+
+rm .gitlab-ci.yml
+git add .
+git status
+git commit -m "remove gitlab-ci"
+git push github main
+
+
+
+to check GitHub page deployed from GitHub actions
+in the repo > settings > pages > build: github actions
+wait for a few minutes
+https://kaiquanmah.github.io/utu-alien-plant-calculator/
+
+
+git add .
+git status
+git commit -m "index.html optimised, app.js fetchConstants, calculateRecomm 3-into-1 for loop"
+git push github main
+
+
+
+continue from Issue 8 - Multiple for loops for findRecommendations
+git add .
+git status
+git commit -m "app.js findRecommendations consolidated 4 for loops round 2"
+git push github main
+
+
+git add .
+git status
+git commit -m "app.js cache constants.json, data.json"
+git push github main
+
+
+git add .
+git status
+git commit -m "app.js cache-filterLargeDataset-collectStats1Go, index.html lazy load, click on video_thumbnail then load, cache _headers"
+git push github main
+
+
+
+pull LICENSE fie from GitHub repo (created manually)
+git pull github main
+
+
+
+
+
+git clone to repo 2 for retest
+(https://github.com/KaiquanMah/utu-alien-plant-calculator-v2.git)
+git clone https://github.com/KaiquanMah/utu-alien-plant-calculator.git
+cd utu-alien-plant-calculator
+git remote add github https://github.com/KaiquanMah/utu-alien-plant-calculator-v2.git
+git push github main --force
+
+
+
+
+
+fetch bug fixes for retest
+git remote add origin https://github.com/KaiquanMah/utu-alien-plant-calculator.git
+git remote add v2 https://KaiquanMah:<yourGitHubPAT>@github.com/KaiquanMah/utu-alien-plant-calculator-v2.git 
+# Fetch updates from the original repo
+git fetch origin
+# Checkout the branch you want to work with (e.g., main)
+git checkout main
+# Pull changes (equivalent to fetch + merge)
+git pull origin main
+
+
+
+# Clone the repository (HTTPS with Personal Access Token for authentication)
+git clone https://KaiquanMah:<yourGitHubPAT>@github.com/KaiquanMah/utu-alien-plant-calculator.git 
+git remote -v
+cd utu-alien-plant-calculator
+git remote add github https://github.com/KaiquanMah/utu-alien-plant-calculator-v2.git
+git remote -v
+git push github main --force
+
+
+
+
+
+
+utu-green vm
+=====
+key pair
+name: utu
+<RSA>
+.pem format
